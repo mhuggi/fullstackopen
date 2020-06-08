@@ -1,0 +1,3 @@
+
+Selain->Palvelin: Syötetty teksti, aikaleima sekä header lähetetään palvelimelle
+Palvelin-->Selain: Teksti haetaan palvelimelta ilman sivun päivittämistä

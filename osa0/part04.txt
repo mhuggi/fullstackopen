@@ -1,0 +1,3 @@
+
+Selain->Palvelin: Syötetty teksti lähetetään palvelimelle
+Palvelin-->Selain: Palvelin tekee uudelleenohjauspyynnön jotta sivu päivittyy
