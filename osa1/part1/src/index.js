@@ -67,16 +67,4 @@ const App = () => {
   )
 }
 
-/*const App = () => {
-
-  return (
-    <div>
-      <Header course={course} />
-      <Content part1={part1} part2={part2} part3={part3}
-       exercises1={exercises1} exercises2={exercises2} exercises3={exercises3} />
-      <Total exercises={exercises1 + exercises2 + exercises3}/>
-    </div>
-  )
-}
-*/
 ReactDOM.render(<App />, document.getElementById('root'))
