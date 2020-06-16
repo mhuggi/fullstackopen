@@ -17,7 +17,7 @@ const Course = ({ course }) => {
                         }
                         )
                         }
-                    <Total exercises={allExer.reduce(reducer)} />
+                        <Total exercises={allExer.reduce(reducer)} />
                     </div>)
             }
 
