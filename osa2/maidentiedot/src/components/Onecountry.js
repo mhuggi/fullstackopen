@@ -1,10 +1,13 @@
 import React from 'react'
+import Weather from './Weather'
 
 const Onecountry = ({ country}) => {
   const langs = []
   for (const [index, value] of country.languages.entries()) {
     langs.push(<li key={index}>{value.name}</li>)
   }
+
+
 
     return (
         <div>
@@ -16,7 +19,7 @@ const Onecountry = ({ country}) => {
         {langs}
     </ul>
     <img src={country.flag} width='300px' alt={country.name} />
-
+      <Weather country={country} />
     </div>
   )
 }

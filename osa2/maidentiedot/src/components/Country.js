@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Country = ({ country, showCountry}) => {
+const Country = ({ country }) => {
     return (
         <div>
     <p>{country.name} </p>
