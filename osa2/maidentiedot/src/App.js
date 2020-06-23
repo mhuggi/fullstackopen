@@ -8,7 +8,7 @@ import Onecountry from './components/Onecountry'
 
 
 const App = () => {
-  const [countries, setCountries] = useState([]) 
+  const [countries, setCountries] = useState([])
   const [filter, setFilter] = useState('')
 
 
@@ -19,7 +19,7 @@ const App = () => {
         setCountries(response.data)
       })
   }
-  
+
   useEffect(hook, [])
 
   const handleFilterChange = (event) => {
@@ -39,26 +39,25 @@ const App = () => {
       <Filter filter={filter} onChange={handleFilterChange} />
       <h2>Countries</h2>
       <div>
-        {countriesToShow(countries, filter).map((country, i) =>
-          {
-            if (countriesToShow(countries, filter).length < 10 && countriesToShow(countries, filter).length > 1) {
-              return (
-                <div key={country.name}>
-              <Country key={country.name + "Text"} country={country} showCountry={showCountry}/>
-              <button key={country.name + "Button"} type="button" onClick={() => showCountry(country)}>Show</button>
+        {countriesToShow(countries, filter).map((country, i) => {
+          if (countriesToShow(countries, filter).length < 10 && countriesToShow(countries, filter).length > 1) {
+            return (
+              <div key={country.name}>
+                <Country key={country.name + "Text"} country={country} showCountry={showCountry} />
+                <button key={country.name + "Button"} type="button" onClick={() => showCountry(country)}>Show</button>
               </div>
-              )
-            } else if (countriesToShow(countries, filter).length === 1){
-              return <Onecountry key={country.name + "OneCountry"} country={country}/>
-            } else if (countriesToShow(countries, filter).length - 1 === i){
-              return <Toomany key="toomany" />
-            }
+            )
+          } else if (countriesToShow(countries, filter).length === 1) {
+            return <Onecountry key={country.name + "OneCountry"} country={country} />
+          } else if (countriesToShow(countries, filter).length - 1 === i) {
+            return <Toomany key="toomany" />
           }
+        }
         )}
-          
+
       </div>
     </div>
 
   )
 }
-  export default App
+export default App
