@@ -1,8 +1,9 @@
 import React, { useState , useEffect } from 'react'
-import axios from 'axios'
 import Person from './components/Person'
 import Filter from './components/Filter'
 import New from './components/New'
+import personService from './services/persons'
+
 
 
 const App = () => {
@@ -11,17 +12,13 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
-  const hook = () => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+  useEffect(() => {
+    personService
+      .getAll()
+      .then(initialNotes => {
+        setPersons(initialNotes)
       })
-  }
-  
-  useEffect(hook, [])
+  }, [])
 
 
   const addNewPerson = (event) => {
@@ -31,16 +28,33 @@ const App = () => {
       number: newNumber
     }
     if (persons.some(e => e.name === newName)) {
-      alert(`${newName} is already added to phonebook`)
+      if(window.confirm(`${newName} is already added to phonebook, replace old number with a new one?`)) {
+        const pers = persons.find(n => n.name === newName)
+        const newPers = { ...pers, number: newNumber }
+
+        personService
+        .update(pers.id, newPers)
+        
+      }
       setNewNumber('')
       setNewName('')
 
     } else {
-    setPersons(persons.concat(personObj))
-    setNewName('')
-    setNewNumber('')
-
+      personService
+      .create(personObj)
+      .then(returnedNote => {
+        setPersons(persons.concat(returnedNote))
+        setNewNumber('')
+        setNewName('')
+    })
+  
     }
+  }
+  const deletePerson = (person) => {
+    if (window.confirm("Delete "+ person.name + "?")) {
+      personService
+      .del(person.id)
+      }
   }
   const handleNewNameChange = (event) => {
     setNewName(event.target.value)
@@ -70,8 +84,9 @@ const App = () => {
       <h2>Numbers</h2>
       <div>
         {personsToShow(persons, filter).map((person, i) =>
-          <Person key={person.name} person={person} />
-
+        <div>
+          <Person key={person.name} person={person} click={() => deletePerson(person)}/>
+          </div>
         )}
       </div>
     </div>
