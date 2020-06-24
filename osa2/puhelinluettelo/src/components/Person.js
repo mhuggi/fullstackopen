@@ -4,7 +4,7 @@ const Person = ({ person, click }) => {
   return (
     <div>
     <p>{person.name} {person.number} 
-    <button onClick={click} >delete</button></p>
+    <button key={person.name + "button"} onClick={click} >delete</button></p>
     </div>
   )
 }
