@@ -54,13 +54,14 @@ const App = () => {
           setPersons(persons.concat(returnedNote))
           setNewNumber('')
           setNewName('')
+          setMessage(`Added ${newName} `)
+          setTimeout(function () { setMessage(null) }, 3000);
+        
         })
         .catch(error => {
-          setMessage(error.response.data)
+          //setMessage(error.response.data),
+          console.log(error.response.data)
         })
-      setMessage(`Added ${newName} `)
-      setTimeout(function () { setMessage(null) }, 3000);
-
     }
   }
   const deletePerson = (person) => {
