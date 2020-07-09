@@ -55,6 +55,9 @@ const App = () => {
           setNewNumber('')
           setNewName('')
         })
+        .catch(error => {
+          setMessage(error.response.data)
+        })
       setMessage(`Added ${newName} `)
       setTimeout(function () { setMessage(null) }, 3000);
 
