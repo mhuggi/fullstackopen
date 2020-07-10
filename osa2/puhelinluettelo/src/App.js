@@ -59,8 +59,11 @@ const App = () => {
         
         })
         .catch(error => {
-          //setMessage(error.response.data),
-          console.log(error.response.data)
+          
+          setMessage(error.response.data.error)
+          setTimeout(function () { setMessage(null) }, 3000);
+
+          //console.log(error.response.data.error)
         })
     }
   }
