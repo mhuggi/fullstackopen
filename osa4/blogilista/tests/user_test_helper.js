@@ -11,7 +11,6 @@ const initialUsers = [
         name: 'Katti Matikainen',
         passwordHash: 'palissalis'
     }
-
 ]
 
 const usersInDb = async () => {
