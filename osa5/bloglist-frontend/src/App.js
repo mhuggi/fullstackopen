@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login' 
 
@@ -9,9 +10,7 @@ const App = () => {
   const [newTitle, setNewTitle] = useState([])
   const [newAuth, setNewAuth] = useState([])
   const [newUrl, setNewUrl] = useState([])
-
   const [errorMessage, setErrorMessage] = useState(null)
-
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -31,6 +30,8 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
+
   const addBlog = (event) => {
     event.preventDefault()
     const blogObj = {
@@ -38,7 +39,6 @@ const App = () => {
       author: newAuth,
       url: newUrl,
     }
-  
     blogService
       .create(blogObj)
       .then(returnedBlog => {
@@ -46,7 +46,10 @@ const App = () => {
         setNewTitle('')
         setNewUrl('')
         setNewAuth('')
-
+        setErrorMessage('Created ' + blogObj.title + ' by ' + blogObj.author)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       })
   }
 
@@ -113,18 +116,21 @@ const App = () => {
   )
 
   const blogForm = () => (
+    <div>
+    <h2>create new</h2>
     <form onSubmit={addBlog}>
-      <p>Title</p><input value={newTitle} onChange={handleTitleChange} />
-      <p>Author</p><input value={newAuth} onChange={handleAuthChange} />
-      <p>Url</p><input value={newUrl} onChange={handleUrlChange} />
+      <p>Title: <input value={newTitle} onChange={handleTitleChange} /></p>
+      <p>Author: <input value={newAuth} onChange={handleAuthChange} /></p>
+      <p>Url: <input value={newUrl} onChange={handleUrlChange} /></p>
       <button type="submit">save</button>
     </form>
-
+    </div>
   )
   if (user === null) {
     return (
       <div>
         <h2>Log in to application</h2>
+        <Notification message={errorMessage} />
         {loginForm()}
       </div>
     )
@@ -133,6 +139,8 @@ const App = () => {
 
   return (
     <div>
+      <h2>blogs</h2>
+      <Notification message={errorMessage} />
       <p>Logged in as {user.name}
       <button onClick={() => logOut()}>logout</button></p>
       {blogForm()}
