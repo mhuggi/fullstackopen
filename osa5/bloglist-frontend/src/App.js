@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
+import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login' 
@@ -7,13 +9,11 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [newTitle, setNewTitle] = useState([])
-  const [newAuth, setNewAuth] = useState([])
-  const [newUrl, setNewUrl] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const blogFormRef = useRef()
 
 
   useEffect(() => {
@@ -32,20 +32,12 @@ const App = () => {
   }, [])
 
 
-  const addBlog = (event) => {
-    event.preventDefault()
-    const blogObj = {
-      title: newTitle,
-      author: newAuth,
-      url: newUrl,
-    }
+  const addBlog = (blogObj) => {
+    blogFormRef.current.toggleVisibility()
     blogService
       .create(blogObj)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setNewTitle('')
-        setNewUrl('')
-        setNewAuth('')
         setErrorMessage('Created ' + blogObj.title + ' by ' + blogObj.author)
         setTimeout(() => {
           setErrorMessage(null)
@@ -80,17 +72,6 @@ const App = () => {
     window.location.reload(false)
   }
 
-  const handleTitleChange = (e) => {
-    setNewTitle(e.target.value)
-  }
-  const handleAuthChange = (e) => {
-    setNewAuth(e.target.value)
-  }
-  const handleUrlChange = (e) => {
-    setNewUrl(e.target.value)
-  }
-
-
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -116,15 +97,10 @@ const App = () => {
   )
 
   const blogForm = () => (
-    <div>
-    <h2>create new</h2>
-    <form onSubmit={addBlog}>
-      <p>Title: <input value={newTitle} onChange={handleTitleChange} /></p>
-      <p>Author: <input value={newAuth} onChange={handleAuthChange} /></p>
-      <p>Url: <input value={newUrl} onChange={handleUrlChange} /></p>
-      <button type="submit">save</button>
-    </form>
-    </div>
+    <Togglable buttonLabel='new blog' ref={blogFormRef}>
+      <BlogForm createBlog={addBlog} />
+    </Togglable>
+
   )
   if (user === null) {
     return (
