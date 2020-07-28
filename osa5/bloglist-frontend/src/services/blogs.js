@@ -25,5 +25,9 @@ const like = async (id, newObject) => {
   return request.data
   } 
 
+const del = async id => {
+  const response = await axios.delete(`${baseUrl}/${id}`)
+  return response.data
+}
 
-export default { getAll, setToken, create, like }
+export default { getAll, setToken, create, like, del }

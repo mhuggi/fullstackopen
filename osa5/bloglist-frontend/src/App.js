@@ -122,7 +122,6 @@ const App = () => {
       {blogForm()}
       <h2>blogs</h2>
       
-      {console.log(blogs)}
       {blogs
       .sort((a, b) => a.likes < b.likes ? 1 : -1)
       .map(blog =>
