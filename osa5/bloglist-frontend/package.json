@@ -34,8 +34,12 @@
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
+    "@react-mock/localstorage": "^0.1.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
-    "eslint-plugin-jest": "^23.19.0"
+    "eslint-plugin-jest": "^23.19.0",
+    "jest-localstorage-mock": "^2.4.3"
   }
+
+  
 }
