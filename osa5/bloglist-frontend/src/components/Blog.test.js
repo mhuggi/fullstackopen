@@ -23,7 +23,6 @@ describe('<Blog />', () => {
     }
 
     beforeEach(() => {
-        localStorage.setItem('loggedBlogUser', loggedUser)
         component = render(
                 <Blog blog={blog} />
         )
@@ -46,16 +45,16 @@ describe('<Blog />', () => {
     })
 
     test('Show likes and url after pressing view', () => {
+        const button = component.getByText('View')
+        fireEvent.click(button)
         const li = component.container.querySelector('li')
         console.log(prettyDOM(li))
         
-        const button = component.getByText('View')
-        fireEvent.click(button)
 
         expect(component.container).toHaveTextContent('test.com')
         expect(component.container).toHaveTextContent('likes')
 
 
-    })
+    })      
 
 })
