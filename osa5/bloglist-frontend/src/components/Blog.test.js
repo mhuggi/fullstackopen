@@ -6,20 +6,15 @@ import Blog from './Blog'
 
 
 
-test('renders content', () => {
+test('Only show Title and Author', () => {
     const blog = {
         title: 'Component testing is done with react-testing-library',
         author: 'Testman',
         url: 'test.com'
     }
-
     const component = render(
         <Blog blog={blog} />
     )
-    const li = component.container.querySelector('li')
-
-    console.log(prettyDOM(li))
-
     expect(component.container).toHaveTextContent(
         'Component testing is done with react-testing-library'
     )
@@ -30,11 +25,30 @@ test('renders content', () => {
         'test.com'
     )
     expect(url).toBeNull()
-    
     const likes = component.queryByText(
         'likes'
     )
     expect(likes).toBeNull()
+})
 
+test('Show likes and url after pressing view', () => {
+    const blog = {
+        title: 'Component testing is done with react-testing-library',
+        author: 'Testman',
+        url: 'test.com'
+    }
+    beforeEach(() => {
+    component = render(
+        <Blog blog={blog} />
+    )
+    
+    const button = component.getByText('view')
+    fireEvent.click(button)
+    
+    expect(component.container).toHaveTextContent('test.com')
+    expect(component.container).toHaveTextContent('likes')
+
+
+})
 
 })
