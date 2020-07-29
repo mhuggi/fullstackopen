@@ -4,13 +4,13 @@ import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
-import loginService from './services/login' 
+import loginService from './services/login'
 
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const blogFormRef = useRef()
@@ -19,7 +19,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const App = () => {
 
       window.localStorage.setItem(
         'loggedBlogUser', JSON.stringify(user)
-      ) 
+      )
 
       setUser(user)
       setUsername('')
@@ -76,7 +76,7 @@ const App = () => {
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -85,7 +85,7 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -93,7 +93,7 @@ const App = () => {
         />
       </div>
       <button type="submit">login</button>
-    </form>      
+    </form>
   )
 
   const blogForm = () => (
@@ -118,15 +118,15 @@ const App = () => {
       <h2>blogs</h2>
       <Notification message={errorMessage} />
       <p>Logged in as {user.name}
-      <button onClick={() => logOut()}>logout</button></p>
+        <button onClick={() => logOut()}>logout</button></p>
       {blogForm()}
       <h2>blogs</h2>
-      
+
       {blogs
-      .sort((a, b) => a.likes < b.likes ? 1 : -1)
-      .map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
+        .sort((a, b) => a.likes < b.likes ? 1 : -1)
+        .map(blog =>
+          <Blog key={blog.id} blog={blog} />
+        )}
     </div>
   )
 }

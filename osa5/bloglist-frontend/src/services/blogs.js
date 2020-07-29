@@ -23,7 +23,7 @@ const like = async (id, newObject) => {
   newObject.likes += 1
   const request = await axios.put(`${baseUrl}/${id}`, newObject)
   return request.data
-  } 
+}
 
 const del = async id => {
   const response = await axios.delete(`${baseUrl}/${id}`)
