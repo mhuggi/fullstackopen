@@ -12,6 +12,7 @@ describe('<Blog />', () => {
         title: 'Component testing is done with react-testing-library',
         author: 'Testman',
         url: 'test.com',
+        likes: 0,
         user: {
             username: "eme",
             name: "Emil Salmi"
@@ -21,10 +22,12 @@ describe('<Blog />', () => {
         username: "eme",
         name: "Emil Salmi"
     }
+    const mockHandler = jest.fn()
 
     beforeEach(() => {
+
         component = render(
-                <Blog blog={blog} />
+                <Blog blog={blog} like={mockHandler}/>
         )
     })
     test('Only show Title and Author', () => {
@@ -47,14 +50,23 @@ describe('<Blog />', () => {
     test('Show likes and url after pressing view', () => {
         const button = component.getByText('View')
         fireEvent.click(button)
-        const li = component.container.querySelector('li')
-        console.log(prettyDOM(li))
         
 
         expect(component.container).toHaveTextContent('test.com')
         expect(component.container).toHaveTextContent('likes')
+    })
+    test('If like is pressed twice props will call twice', async () => {
 
+        const viewButton = component.getByText('View')
+        fireEvent.click(viewButton)
+        const button = component.container.querySelector('.likeButton')
+        fireEvent.click(button)
+        fireEvent.click(button)
 
-    })      
+        const li = component.container.querySelector('li')
+        console.log(prettyDOM(li))
 
+        expect(mockHandler.mock.calls).toHaveLength(2)
+
+    })
 })
