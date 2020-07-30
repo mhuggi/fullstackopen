@@ -31,7 +31,7 @@ describe('Blog app', function() {
             cy.contains('wrong credentials')
         })
       })
-      describe.only('When logged in', function() {
+      describe('When logged in', function() {
         beforeEach(function() {
             cy.login({ username: 'emil', password: 'salis' })
         })
@@ -59,6 +59,32 @@ describe('Blog app', function() {
 
 
       })
+      describe.only('When logged in', function() {
+        beforeEach(function() {
+            cy.login({ username: 'emil', password: 'salis' })
+            cy.createBlog({ title: '3rd most likes testblog', author: 'cypress', url: 'url.com', likes: 3 })
+            cy.createBlog({ title: '2nd most likes testblog', author: 'cypress', url: 'url.com', likes: 5 })
+            cy.createBlog({ title: 'Least likes testblog', author: 'cypress', url: 'url.com', likes: 2 })
+            cy.createBlog({ title: 'Most likes testblog', author: 'cypress', url: 'url.com', likes: 10 })
+        })
+        it('Blogs are ordered by likes', function() {
+            cy.get('#blogs').find('button').then(buttons => {
+                cy.wrap(buttons[0].click())
+                cy.wrap(buttons[1].click())
+                cy.wrap(buttons[2].click())
+                cy.wrap(buttons[3].click())
+            })
+            cy.get('#blogs').find('div').then(blogs => {
+                cy.wrap(blogs[0]).should('contain', 'Most likes')
+                cy.wrap(blogs[2]).should('contain', '2nd most likes')
+                cy.wrap(blogs[4]).should('contain', '3rd most likes')
+                cy.wrap(blogs[6]).should('contain', 'Least likes')
+
+            })
+
+        })
+    })
+
     
     
 })

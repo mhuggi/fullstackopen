@@ -123,12 +123,13 @@ const App = () => {
         <button onClick={() => logOut()}>logout</button></p>
       {blogForm()}
       <h2>blogs</h2>
-
+<span id="blogs">
       {blogs
         .sort((a, b) => a.likes < b.likes ? 1 : -1)
         .map(blog =>
           <Blog key={blog.id} blog={blog} />
         )}
+        </span>
     </div>
   )
 }
