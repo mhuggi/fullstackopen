@@ -54,7 +54,7 @@ const Blog = ({ blog }) => {
     if (updateLikes === true) {
       return (
         <div style={blogStyle}>
-          <div id="viewMoreDiv">
+          <div>
             {blog.title} {blog.author}
             <button id="hide-button" type="button" onClick={toggleMore}>Hide</button>
             <p>{blog.url}</p>

@@ -59,7 +59,7 @@ describe('Blog app', function() {
 
 
       })
-      describe.only('When logged in', function() {
+      describe('When logged in', function() {
         beforeEach(function() {
             cy.login({ username: 'emil', password: 'salis' })
             cy.createBlog({ title: '3rd most likes testblog', author: 'cypress', url: 'url.com', likes: 3 })
