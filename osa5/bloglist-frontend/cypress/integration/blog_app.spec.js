@@ -48,10 +48,16 @@ describe('Blog app', function() {
             cy.createBlog({ title: 'A blog', author: 'cypress', url: 'url.com' })
             cy.get('#view-button').click()
             cy.get('#like-button').click()
-            cy.get('#hide-button').click()
-            cy.get('#view-button').click()
             cy.contains('likes 1')
         })
+        it('A blog can be deleted', function() {
+            cy.createBlog({ title: 'A blog', author: 'cypress', url: 'url.com' })
+            cy.get('#view-button').click()
+            cy.get('#delete-button').click()
+            cy.get('html').should('not.contain', 'A blog')
+        })
+
+
       })
     
     
