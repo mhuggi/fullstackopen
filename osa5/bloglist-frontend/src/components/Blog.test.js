@@ -22,12 +22,11 @@ describe('<Blog />', () => {
         username: "eme",
         name: "Emil Salmi"
     }
-    const mockHandler = jest.fn()
 
     beforeEach(() => {
 
         component = render(
-                <Blog blog={blog} like={mockHandler}/>
+                <Blog blog={blog}/>
         )
     })
     test('Only show Title and Author', () => {
@@ -62,11 +61,12 @@ describe('<Blog />', () => {
         const button = component.container.querySelector('.likeButton')
         fireEvent.click(button)
         fireEvent.click(button)
+        
 
         const li = component.container.querySelector('li')
         console.log(prettyDOM(li))
 
-        expect(mockHandler.mock.calls).toHaveLength(2)
+        expect(likeHandler.mock.calls).toHaveLength(2)
 
     })
 })

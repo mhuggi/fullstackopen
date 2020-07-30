@@ -52,7 +52,7 @@ const Blog = ({ blog }) => {
           {blog.title} {blog.author}
           <button type="button" onClick={toggleMore}>Hide</button>
           <p>{blog.url}</p>
-          <p>likes {blog.likes}<button type="button" className="likeButton" onClick={like(blog)}>like</button></p>
+          <p>likes {blog.likes}<button type="button" className="likeButton" onClick={() => like(blog)}>like</button></p>
           <p>{blog.user.name}</p>
           <DelButton user={blog.user.username} />
         </div>
