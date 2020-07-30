@@ -24,7 +24,7 @@ const errorHandler = (error, request, response, next) => {
       error: 'invalid token'
     })
 
-  } 
+  }
 
   next(error)
 }
