@@ -10,7 +10,8 @@ const Blog = ({ blog }) => {
     setShowMore(!showMore)
   }
   const like = (blog) => {
-    blogs.like(blog._id, blog)
+    blogs
+      .like(blog._id, blog)
   }
 
   const loggedUser = JSON.parse(localStorage.getItem('loggedBlogUser'))
@@ -40,7 +41,7 @@ const Blog = ({ blog }) => {
       <div style={blogStyle}>
         <div>
           {blog.title} {blog.author}
-          <button type="button" onClick={toggleMore}>View</button>
+          <button id="view-button" type="button" onClick={toggleMore}>View</button>
         </div>
       </div>
 
@@ -50,9 +51,9 @@ const Blog = ({ blog }) => {
       <div style={blogStyle}>
         <div>
           {blog.title} {blog.author}
-          <button type="button" onClick={toggleMore}>Hide</button>
+          <button id="hide-button" type="button" onClick={toggleMore}>Hide</button>
           <p>{blog.url}</p>
-          <p>likes {blog.likes}<button type="button" className="likeButton" onClick={() => like(blog)}>like</button></p>
+          <p>likes {blog.likes}<button id="like-button" type="button" className="likeButton" onClick={() => like(blog)}>like</button></p>
           <p>{blog.user.name}</p>
           <DelButton user={blog.user.username} />
         </div>
