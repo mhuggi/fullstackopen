@@ -4,6 +4,7 @@ import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { newMessage } from '../reducers/notificationReducer'
 
 
+
 const Anecdotes = () => {
     const anecdotes = useSelector(state => state.anecdote)
     const dispatch = useDispatch()

@@ -1,7 +1,8 @@
 import { createStore, combineReducers } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import anecdoteReducer from '../reducers/anecdoteReducer'
-import notiReducer from '../reducers/notificationReducer'
+import anecdoteReducer, { initializeAnecdotes } from './reducers/anecdoteReducer'
+import notiReducer from './reducers/notificationReducer'
+import anecdoteService from './services/anecdotes'
 
 const reducer = combineReducers({
   anecdote: anecdoteReducer,
@@ -13,7 +14,10 @@ const reducer = combineReducers({
     reducer,
     composeWithDevTools()
     )
-
+    anecdoteService.getAll().then(anecdotes =>
+        store.dispatch(initializeAnecdotes(anecdotes))
+    )
+    
     console.log(store.getState())
 
   
