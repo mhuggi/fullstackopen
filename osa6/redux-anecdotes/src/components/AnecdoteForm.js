@@ -12,11 +12,11 @@ const NewAnecdote = (props) => {
         event.preventDefault()
         const anecdote = event.target.anecdote.value
         event.target.anecdote.value = ''
-        //dispatch(createAnecdote(anecdote))
         props.createAnecdote(anecdote)
         dispatch(newMessage(`Created '${anecdote}'`))
-        setTimeout(function(){ dispatch(newMessage('')) }, 5000);
-        
+
+        setTimeout(function(){ 
+            dispatch(newMessage('')) }, 5000);
     }
 
     return (
