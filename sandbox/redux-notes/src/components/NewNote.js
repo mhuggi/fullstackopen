@@ -4,7 +4,6 @@ import { createNote } from '../reducers/noteReducer'
 
 
 const NewNote = (props) => {
-  const dispatch = useDispatch()
   
   const addNote = async (event) => {
     event.preventDefault()
