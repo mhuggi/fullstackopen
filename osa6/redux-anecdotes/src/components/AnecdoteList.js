@@ -10,7 +10,7 @@ const Anecdotes = () => {
     const dispatch = useDispatch()
 
     const vote = (anecdote) => {
-        dispatch(voteAnecdote(anecdote.id))
+        dispatch(voteAnecdote(anecdote))
         dispatch(newMessage(`You voted '${anecdote.content}'`))
         setTimeout(function(){ dispatch(newMessage('')) }, 5000);
 
